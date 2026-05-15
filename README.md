@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<div align="center">
+  <img src="https://lucide.dev/logo.svg" alt="URL Shortener Logo" width="100" height="100" />
+  <h1>🚀 Next.js URL Shortener Frontend</h1>
+  <p>A lightning-fast, production-ready frontend for your URL Shortener service.</p>
+</div>
 
-## Getting Started
+---
 
-First, run the development server:
+## ✨ Features
+
+- **⚡ Blazing Fast Next.js (App Router)**: Fully optimized static and dynamic route rendering with Turbopack.
+- **🎨 Tailwind CSS Styling**: Beautiful, responsive, and modern UI out-of-the-box.
+- **🔒 Secure Authentication**: Seamless JWT integration wielding Axios interceptors with silent, automatic 401 token refreshing.
+- **💾 Persistent State**: Zustand paired with local storage keeps your session alive gracefully across reloads.
+- **💡 Clean Dashboard & Admin Panels**: Role-based routing to keep admins and users neatly separated.
+- **🔔 Actionable Toasts**: Instant feedback mechanisms using React Hot Toast.
+- **🎯 Typescript Hardened**: Strictest typing configurations to ensure maximum stability and zero `any` usage.
+
+---
+
+## 🛠️ Tech Stack
+
+- **Framework:** [Next.js 16+](https://nextjs.org/) (App Router)
+- **State Management:** [Zustand](https://zustand-demo.pmnd.rs/) with Persist Middleware
+- **Styling:** [Tailwind CSS v4](https://tailwindcss.com/)
+- **HTTP Client:** [Axios](https://axios-http.com/)
+- **Icons:** [Lucide React](https://lucide.dev/)
+- **Alerts:** [React Hot Toast](https://react-hot-toast.com/)
+
+---
+
+## 🚀 Getting Started
+
+### 1. Prerequisites
+
+- Make sure you have **Node.js** (v18+) installed.
+- Ensure your backend NestJS API is running locally or deployed.
+
+### 2. Installation
+
+Clone this repository and install the dependencies:
+
+```bash
+npm install
+```
+
+### 3. Environment Variables
+
+Create a \`.env.local\` file in the root of the project and set your backend API URL (defaults to \`http://localhost:3000\` if not provided):
+
+```env
+NEXT_PUBLIC_API_URL=http://localhost:3000
+```
+
+### 4. Run Development Server
+
+Start the fast Turbopack development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visit [http://localhost:3001](http://localhost:3001) in your browser. (Typically Next uses 3000, but if your backend runs on 3000, start this on a different port like \`npm run dev -- -p 3001\`).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📦 Production Deployment
 
-## Learn More
+The project is fully linter-cleared and AST compiled. Ready for Vercel, Netlify, or any VPS:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+# Compile optimized build
+npm run build
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# Start production server
+npm run start
+```
