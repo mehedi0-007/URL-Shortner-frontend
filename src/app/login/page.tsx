@@ -18,7 +18,11 @@ export default function Login() {
         setLoading(true);
         try {
             const res = await api.post("/auth/login", { email, password });
-            setLogin(res.data.user, res.data.access_token);
+            const token = res.data?.access_token || res.data?.token;
+            if (!token) {
+                throw new Error("Missing access token");
+            }
+            setLogin(res.data?.user ?? null, token);
             toast.success("Successfully logged in!");
             router.push("/dashboard");
         } catch (err) {

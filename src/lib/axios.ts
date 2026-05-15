@@ -42,8 +42,9 @@ api.interceptors.response.use(
           const newToken = res.data.access_token || res.data.token;
           if (typeof window !== "undefined") {
             localStorage.setItem("token", newToken);
-            // Updating zustand cache slightly out of band to prevent cyclic dependencies
-            useAuthStore.getState().token = newToken;
+            useAuthStore
+              .getState()
+              .login(useAuthStore.getState().user, newToken);
           }
           originalRequest.headers.Authorization = `Bearer ${newToken}`;
           return api(originalRequest);

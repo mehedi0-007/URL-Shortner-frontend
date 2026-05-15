@@ -17,7 +17,7 @@ export default function Profile() {
 
     useEffect(() => {
         // eslint-disable-next-line react-hooks/set-state-in-effect
-    setMounted(true);
+        setMounted(true);
         if (user?.name) setName(user.name);
     }, [user]);
 

@@ -71,7 +71,7 @@ export default function Home() {
           <div className="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-gray-200 text-left">
             <h2 className="text-2xl font-bold mb-4 text-gray-800 text-center">Shorten a new URL</h2>
             <form onSubmit={handleShorten} className="flex flex-col sm:flex-row gap-3">
-              <input type="url" required placeholder="https://example.com/very-long-url-to-shorten" value={url} onChange={(e) => setUrl(e.target.value)} className="flex-grow px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none" />
+              <input type="url" required placeholder="https://example.com/very-long-url-to-shorten" value={url} onChange={(e) => setUrl(e.target.value)} className="grow px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none" />
               <button type="submit" disabled={loading || !url} className="px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition disabled:opacity-50 whitespace-nowrap">
                 {loading ? "Shortening..." : "Shorten"}
               </button>
