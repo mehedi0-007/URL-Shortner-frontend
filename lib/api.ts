@@ -1,4 +1,6 @@
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
+const API_BASE = (
+  process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000"
+).replace(/\/$/, "");
 
 export type ApiError = {
   message: string;
@@ -23,7 +25,7 @@ export type ShortUrl = {
   shortUrl: string;
   originalUrl: string;
   clicks: number;
-  status: 'Active' | 'Expired';
+  status: "Active" | "Expired";
   createdAt: string;
   expiresAt: string;
 };
@@ -65,18 +67,18 @@ async function request<T>(
   const { token, headers: extraHeaders, ...rest } = options;
 
   const headers: Record<string, string> = {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
     ...(extraHeaders as Record<string, string>),
   };
 
   if (token) {
-    headers['Authorization'] = `Bearer ${token}`;
+    headers["Authorization"] = `Bearer ${token}`;
   }
 
   const res = await fetch(`${API_BASE}${path}`, {
     ...rest,
     headers,
-    credentials: 'include', // for refresh token cookie
+    credentials: "include", // for refresh token cookie
   });
 
   if (!res.ok) {
@@ -96,19 +98,24 @@ async function request<T>(
 
 // ─── Auth ────────────────────────────────────────────────────────────────────
 
-export async function login(email: string, password: string): Promise<AuthTokens> {
-  return request<AuthTokens>('/auth/login', {
-    method: 'POST',
+export async function login(
+  email: string,
+  password: string,
+): Promise<AuthTokens> {
+  return request<AuthTokens>("/auth/login", {
+    method: "POST",
     body: JSON.stringify({ email, password }),
   });
 }
 
 export async function logout(token: string): Promise<void> {
-  return request('/auth/logout', { method: 'POST', token });
+  return request("/auth/logout", { method: "POST", token });
 }
 
-export async function refreshToken(): Promise<AuthTokens & { refresh_token: string }> {
-  return request('/auth/refresh', { method: 'POST' });
+export async function refreshToken(): Promise<
+  AuthTokens & { refresh_token: string }
+> {
+  return request("/auth/refresh", { method: "POST" });
 }
 
 // ─── User ────────────────────────────────────────────────────────────────────
@@ -118,8 +125,8 @@ export async function register(data: {
   email: string;
   password: string;
 }): Promise<User> {
-  return request<User>('/user/register', {
-    method: 'POST',
+  return request<User>("/user/register", {
+    method: "POST",
     body: JSON.stringify(data),
   });
 }
@@ -134,14 +141,14 @@ export async function changePassword(
   token: string,
 ): Promise<User> {
   return request<User>(`/user/${id}`, {
-    method: 'PATCH',
+    method: "PATCH",
     body: JSON.stringify(data),
     token,
   });
 }
 
 export async function deleteAccount(id: string, token: string): Promise<void> {
-  return request(`/user/${id}`, { method: 'DELETE', token });
+  return request(`/user/${id}`, { method: "DELETE", token });
 }
 
 // ─── URL ─────────────────────────────────────────────────────────────────────
@@ -151,35 +158,35 @@ export async function createShortUrl(
   expiresAt: string,
   token: string,
 ): Promise<{ data: string }> {
-  return request<{ data: string }>('/url', {
-    method: 'POST',
+  return request<{ data: string }>("/url", {
+    method: "POST",
     body: JSON.stringify({ originalUrl, expiresAt }),
     token,
   });
 }
 
 export async function deleteUrl(id: string, token: string): Promise<void> {
-  return request(`/url/${id}`, { method: 'DELETE', token });
+  return request(`/url/${id}`, { method: "DELETE", token });
 }
 
 export async function extendUrl(
   id: string,
   token: string,
 ): Promise<{ msg: string; data: unknown }> {
-  return request(`/url/extend/${id}`, { method: 'PATCH', token });
+  return request(`/url/extend/${id}`, { method: "PATCH", token });
 }
 
 export async function regenerateUrl(
   id: string,
   token: string,
 ): Promise<{ msg: string; data: unknown }> {
-  return request(`/url/regenerate/${id}`, { method: 'PATCH', token });
+  return request(`/url/regenerate/${id}`, { method: "PATCH", token });
 }
 
 // ─── Dashboard ───────────────────────────────────────────────────────────────
 
 export async function getUserOverview(token: string): Promise<UserOverview> {
-  return request<UserOverview>('/dashboard/user/overview', { token });
+  return request<UserOverview>("/dashboard/user/overview", { token });
 }
 
 export async function getUserUrls(
@@ -198,7 +205,7 @@ export async function getUrlAnalytics(
 }
 
 export async function getAdminOverview(token: string): Promise<AdminOverview> {
-  return request<AdminOverview>('/dashboard/admin/overview', { token });
+  return request<AdminOverview>("/dashboard/admin/overview", { token });
 }
 
 export async function getAdminUsers(
@@ -206,5 +213,7 @@ export async function getAdminUsers(
   limit: number,
   token: string,
 ): Promise<{ data: User[]; pagination: { page: number; totalPage: number } }> {
-  return request(`/dashboard/admin/users?page=${page}&limit=${limit}`, { token });
+  return request(`/dashboard/admin/users?page=${page}&limit=${limit}`, {
+    token,
+  });
 }
